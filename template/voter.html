@@ -1,0 +1,61 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+        {% block nav %}
+        <li><a href="{% url 'poll:home' %}" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>See Announced Poll Unit</span></a></li>
+        {% endblock %}
+
+        {% block main %}
+
+        <main id="main">
+
+            <!-- ======= Breadcrumbs ======= -->
+            <section class="breadcrumbs">
+                <div class="container">
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2>Announced Poll Result</h2>
+                        <ol>
+                            <li><a href="#">Home</a></li>
+                            <li>Announced Poll Result</li>
+                        </ol>
+                    </div>
+
+                </div>
+            </section><!-- End Breadcrumbs -->
+
+            <!---------------------- poll -------------------------->
+            <div id="poll">
+                <section class="inner-page">
+                    <div class="container text-center">
+                        <div class="row m-3">
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="form-group m-4">
+                                    <label> Polling Unit: </label>
+                                    {% render_field form.polling_unit class+="form-control"%}
+                                </div>
+                                <div class="form-group m-4">
+                                    <label> Party: </label>
+                                    {% render_field form.party class+="form-control" %}
+                                </div>
+                                <div class="form-group m-4">
+                                    <label> Party Score: </label>
+                                    {% render_field form.party_score class+="form-control" %}
+                                </div>
+                                <div class="form-group m-4">
+                                    <label> User: </label>
+                                    {% render_field form.voter class+="form-control" %}
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-sm">Click to go next</button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+        </main><!-- End #main -->
+
+        {% endblock %}

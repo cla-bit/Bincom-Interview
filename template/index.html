@@ -1,0 +1,117 @@
+{% extends 'base/base.html' %}
+{% load static %}
+        {% block main %}
+
+        <main id="main">
+
+            <!-- ======= Breadcrumbs ======= -->
+            <section class="breadcrumbs">
+                <div class="container">
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2>Announced Poll Result</h2>
+                        <ol>
+                            <li><a href="index.html">Home</a></li>
+                            <li>Announced Poll Result</li>
+                        </ol>
+                    </div>
+
+                </div>
+            </section><!-- End Breadcrumbs -->
+
+            <!---------------------- poll -------------------------->
+            <div id="poll">
+                <div class="container">
+                    <h4>State: {{ state }}</h4>
+                </div>
+                <section class="inner-page">
+                    <div class="container">
+                        <div class="row m-3 table-responsive">
+                            <table class="table table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Poll Unit Id</th>
+                                        <th scope="col">Poll Unit Ward</th>
+                                        <th scope="col">Local Government</th>
+                                        <th scope="col">Party</th>
+                                        <th scope="col">Party Score</th>
+                                        <th scope="col">User</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for i in individual_poll %}
+                                    <tr>
+                                        <th scope="row">#</th>
+                                        <td>{{ i.polling_unit.polling_unit_number }}</td>
+                                        <td>{{ i.polling_unit.ward_id }}</td>
+                                        <td>{{ i.polling_unit.lga_id }}</td>
+                                        <td>{{ i.party }}</td>
+                                        <td>{{ i.party_score }}</td>
+                                        <td>{{ i.voter }}</td>
+                                    </tr>
+                                {% endfor %}
+                                    <tr>
+                                        <h4>No. of Polling Units: {{ individual_poll|length }}</h4>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination d-flex justify-content-center align-items-center">
+                            <span class="step-links">
+                                {% if page_obj.has_previous %}
+                                    <a href="?page=1" class="btn btn-primary btn-sm">&laquo; first</a>
+                                    <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-primary btn-sm">previous</a>
+                                {% endif %}
+                                <span class="current">
+                                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                                </span>
+                                {% if page_obj.has_next %}
+                                    <a href="?page={{ page_obj.next_page_number }}" class="btn btn-primary btn-sm">next</a>
+                                    <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-primary btn-sm">last &raquo;</a>
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!---------------------- lga -------------------------->
+            <hr>
+            <div id="lga">
+                <section class="inner-page">
+                    <div class="container">
+                        <div class="row m-3 table-responsive">
+                            <table class="table table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Local Government</th>
+                                        <th scope="col">Total LGA Party Scores</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for i in au %}
+                                    <tr>
+                                        <th scope="row">#</th>
+                                        <td>{{ i.lga_id }}</td>
+                                        <td>{{ i.scores }}</td>
+<!--                                        <td>{{ i.polling_unit.lga_id }}</td>-->
+<!--                                        <td>{{ i.party }}</td>-->
+<!--                                        <td>{{ i.party_score }}</td>-->
+<!--                                        <td>{{ i.voter }}</td>-->
+                                    </tr>
+                                {% endfor %}
+                                    <tr>
+                                        <h4>No. of LGAs: {{ au|length }}</h4>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+        </main><!-- End #main -->
+
+        {% endblock %}
